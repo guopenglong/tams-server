@@ -77,11 +77,11 @@ public class CourseSchedulingExcelManager {
         // 时间map <第几周, timeList>
         Map<Integer, List<String>> timeMap = new HashMap<>();
         for (Map.Entry<Integer, List<LocalDate>> entry : dateMap.entrySet()) {
-            timeMap.put(entry.getKey(), courseSchedulingMapper.selectTimePeriodByDateRange(entry.getValue(), dto.getClassroomId()));
+            timeMap.put(entry.getKey(), courseSchedulingMapper.selectTimePeriodByDateRange(entry.getValue(), dto.getClassroomId(), dto.getTeacherId()));
         }
 
         // 课程map <date+time, course>
-        List<CourseSchedulingExportVO> voList = courseSchedulingMapper.selectByDateRange(startDate, endDate, dto.getClassroomId());
+        List<CourseSchedulingExportVO> voList = courseSchedulingMapper.selectByDateRange(startDate, endDate, dto.getClassroomId(), dto.getTeacherId());
         Map<String, CourseSchedulingExportVO> dataMap = new HashMap<>();
         for (CourseSchedulingExportVO vo : voList) {
             dataMap.put(vo.getDate() + vo.getTime(), vo);
@@ -95,7 +95,8 @@ public class CourseSchedulingExcelManager {
                 createSheet(workbook, dateList, timeMap.get(i), dataMap,
                         getSheetName(dto.getSheetNamingType(), i, dateList),
                         dto.getTitle(),
-                        dto.getClassroomName());
+                        dto.getClassroomName(),
+                        dto.getTeacherName());
             }
             return workbook;
         }
@@ -119,7 +120,7 @@ public class CourseSchedulingExcelManager {
 
     private static void createSheet(Workbook workbook,
                                     List<LocalDate> dateList, List<String> timeList, Map<String, CourseSchedulingExportVO> dataMap,
-                                    String sheetName, String title, String subtitleClassroomName) {
+                                    String sheetName, String title, String subtitleClassroomName,String subtitleteacherName) {
 
         if (workbook == null || CollectionUtils.isAnyEmpty(dateList, timeList) || CollectionUtils.isEmpty(dataMap)) {
             return;

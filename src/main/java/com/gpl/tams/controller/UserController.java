@@ -31,6 +31,7 @@ public class UserController {
             TeacherDO resTeacher = new TeacherDO();
             resTeacher.setToken(JwtUtil.createToken());
             logger.info("{}登录成功,Token:{}", teacherDO.getName(), resTeacher.getToken());
+            //添加session
             return resTeacher;
         }
         logger.error("{}登录失败", teacherDO.getName());

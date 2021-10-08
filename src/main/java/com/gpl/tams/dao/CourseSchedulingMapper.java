@@ -21,9 +21,9 @@ public interface CourseSchedulingMapper extends BaseMapper<CourseSchedulingDO> {
 
     List<Map<String, String>> selectCourseSchedulingCourseCount(@Param(Constants.WRAPPER) Wrapper<?> queryWrapper);
 
-    List<String> selectTimePeriodByDateRange(@Param("dateList") List<LocalDate> dateList, @Param("classroomId") Long classroomId);
+    List<String> selectTimePeriodByDateRange(@Param("dateList") List<LocalDate> dateList, @Param("classroomId") Long classroomId, @Param("teacherId") Long teacherId);
 
-    List<CourseSchedulingExportVO> selectByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("classroomId") Long classroomId);
+    List<CourseSchedulingExportVO> selectByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("classroomId") Long classroomId,@Param("teacherId") Long teacherId);
 
     List<CourseSchedulingReportVO> selectReportTeacherCount(@Param("startDate") String startDate, @Param("endDate") String endDate);
 

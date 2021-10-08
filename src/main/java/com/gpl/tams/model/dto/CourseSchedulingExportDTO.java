@@ -33,6 +33,12 @@ public class CourseSchedulingExportDTO {
     @ApiModelProperty(value = "指定教室名称")
     private String classroomName;
 
+    @ApiModelProperty(value = "指定老师id")
+    private Long teacherId;
+
+    @ApiModelProperty(value = "指定老师名称")
+    private String teacherName;
+
     @ApiModelProperty(value = "是否显示周末")
     private Boolean isShowWeek;
 }
